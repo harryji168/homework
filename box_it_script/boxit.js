@@ -10,7 +10,7 @@
 //  then outputs them inside boxes.
 //  A short disclaimer about the examples, the output will look much better in your 
 //  terminal. 
-//  Aother: Harry Ji 
+//  Auther: Harry Ji 
 //  Date: Sep-12-2021  
 ///////////////////////////////////////////////////////////////////////////////////
 
