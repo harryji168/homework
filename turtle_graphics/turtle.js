@@ -5,6 +5,8 @@
 //  In this homework, you will create a simple drawing program 
 //  inspired by Turtle Graphics. It will be a much simpler implementation 
 //  that will only accept right angles (90 degrees).
+//  Aother: Harry Ji 
+//  Date: Sep-12-2021  
 //
 ///////////////////////////////////////////////////////////////////////////////////
 
