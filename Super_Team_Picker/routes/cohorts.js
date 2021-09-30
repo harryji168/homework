@@ -48,11 +48,13 @@ router.get('/:id', (req, res) => {
                 let isTeamCount = null;
                 let isMemberCount = null;
                 let inputNumb = null;
+                let members = data[0].members.split(',');
                 if (req.query.method && req.query.quantity) {
-                    memberList = [];
-                    let members = data[0].members.split(',');
+                    memberList = [];                    
                     let teamCout, memberCout, left;
-                    inputNumb = parseInt(req.query.quantity);
+                    inputNumb = parseInt(req.query.quantity);                    
+                    if(isNaN(inputNumb)){inputNumb=1};
+                    if(inputNumb<1){inputNumb=1};                    
                     if (req.query.method == 'perTeam') {
                         isMemberCount = 'checked';
                         memberCout = inputNumb;
@@ -89,6 +91,7 @@ router.get('/:id', (req, res) => {
                 res.render("cohorts/show", {
                     pageTitle: "Team " + data[0].name,
                     cohort: data[0],
+                    num_of_member:members.length,
                     memberList: memberList,
                     isTeamCount: isTeamCount,
                     isMemberCount: isMemberCount,
