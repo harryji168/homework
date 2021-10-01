@@ -2,6 +2,14 @@ const express = require('express');
 const knex = require('../db/client');
 const router = express.Router();
 
+function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
 router.get('/', (req, res) => {
     knex("cohorts")
@@ -45,49 +53,38 @@ router.get('/:id', (req, res) => {
                 res.render('cohorts/show',{cohort:false})
             }else{
                 let memberList = null;
-                let isTeamCount = null;
-                let isMemberCount = null;
-                let inputNumb = null;
+                let isTeamCount = 'checked';
+                let isMemberCount = null;                
                 let members = data[0].members.split(',');
+                let inputNumb = null;                         
                 if (req.query.method && req.query.quantity) {
+                    shuffle(members);
                     memberList = [];                    
-                    let teamCout, memberCout, left;
+                    let teamCout, memberCout;
                     inputNumb = parseInt(req.query.quantity);                    
                     if(isNaN(inputNumb)){inputNumb=1};
                     if(inputNumb<1){inputNumb=1};                    
                     if (req.query.method == 'perTeam') {
+                        isTeamCount = null;
                         isMemberCount = 'checked';
-                        memberCout = inputNumb;
-                        teamCout = Math.floor(members.length / memberCout);
-                        left = members.length % memberCout;
+                        memberCout = inputNumb;  
+                        chunk= inputNumb;                                               
                     } else {
-                        isTeamCount = 'checked';
-                        teamCout = inputNumb;
-                        memberCout = Math.floor(members.length / teamCout);
-                        left = members.length % teamCout;
+                        teamCout = inputNumb; 
+                        chunk= Math.ceil(members.length/inputNumb);                                               
                     }
-                    for (let i = 0; i < teamCout; i++) {
-                        let temp = [];
-                        for (let j = 0; j < memberCout; j++) {
-                            let random = parseInt(Math.random() * (members.length));
-                            temp.push(members.splice(random, 1).toString());
-                        }
-                        memberList.push(temp);
+                    console.log(chunk);
+                    var i,j;
+                    for(j=0;j<chunk;j++){
+                        memberList[j] =[];
                     }
-                    if (left != 0) {
-                        if (req.query.method == 'perTeam') {
-                            let temp = [];
-                            for (let i = 0; i < left; i++) {
-                                temp.push(members[i]);
-                            }
-                            memberList.push(temp);
-                        } else {
-                            for (let i = 0; i < left; i++) {
-                                memberList[i].push(members[i]);
-                            }
-                        }
-                    }
-                }
+                    for (i=0,j=0; i < members.length; i++) {                                                  
+                        memberList[j++].push(members[i]);                                                  
+                        if(j>=chunk){      
+                            j=0;
+                        }                                              
+                    }              
+                } 
                 res.render("cohorts/show", {
                     pageTitle: "Team " + data[0].name,
                     cohort: data[0],
