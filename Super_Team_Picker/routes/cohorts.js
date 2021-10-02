@@ -43,6 +43,9 @@ router.post('/', (req, res) => {
  
 
 router.get('/:id', (req, res) => {
+    if(isNaN(parseInt(req.params.id))){
+        res.render('cohorts/show',{cohort:false,pageTitle: "Not Found - Super Team Picker"});
+    }else{ 
     knex("cohorts")
         .select("*")
         .where({
@@ -96,6 +99,7 @@ router.get('/:id', (req, res) => {
                 });
             }
         });
+    }
 });
 
 router.get('/:id/edit', (req, res) => {
@@ -127,6 +131,7 @@ router.patch('/:id', (req, res) => {
             res.render("cohorts/show", {
                 pageTitle: "Team Picker",
                 cohort: data[0],
+                num_of_member:data[0].members.split(',').length,
                 memberList: null,
                 isTeamCount: null,
                 isMemberCount: null,
