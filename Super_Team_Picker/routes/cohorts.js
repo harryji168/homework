@@ -151,31 +151,42 @@ router.delete('/:id', (req, res) => {
             res.redirect("/cohorts");
         });
 });
-// replace faker demo image from unsplash
-router.get('/demo/:id', function (req, res) {   
-    res.render('../db/seeds/demo',{ id:  req.params.id } );
+// replace faker demo image with  unsplash
+router.get('/demo/:id', function (req, res) { 
+    if(req.params.id==0){        
+        knex("cohorts")
+        .min('id')     
+        .then(data => {
+            //console.log(data[0]);
+            res.render('../db/seeds/demo',{ id: data[0]['min'] } );
+        })
+    }else{
+          res.render('../db/seeds/demo',{ id:  req.params.id } );
+    }     
 });
 
 router.patch('/input_demo_image/:id', (req, res) => {   
-    const cohortParmas = {            
-        logoUrl: req.body.imgurl
-    };  
+    //console.log(req.body);
+    //console.log(req.params);
     knex("cohorts")
-        .where({
-            id: req.params.id
-        })
-        .update(cohortParmas).returning("*")
-        .then(data => { 
-            console.log(req.params.id);
+    .where("id", req.params.id)
+    .update(      
+        {  
+            logoUrl: req.body.imgurl
+        }    
+    ).then(() => {
+        knex("cohorts")
+        .max('id')     
+        .then(data => {
             next_id = parseInt(req.params.id)+1;
             console.log(next_id);
-            if(req.params.id>30){ 
+            if(req.params.id>data[0]['max']){ 
                 res.redirect("/cohorts");
-            }else{
+            }else{                
                 res.redirect(`/cohorts/demo/${next_id}`);                
             }
-        });
+        })
+    })        
 });
-
 
 module.exports = router;
