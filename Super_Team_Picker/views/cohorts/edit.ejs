@@ -1,0 +1,19 @@
+<%- include("../partials/header.ejs")%> 
+<% if(cohort){%> 
+    <form action="/cohorts/<%= cohort.id%>" method="POST" class="my-3 d-flex flex-column">
+        <img src="<%= cohort.logoUrl%>"  loading=lazy class="rounded-circle" width="40px" height="40px" alt="">
+        <%- include("../partials/forminput")%>
+        <div class="d-flex justify-content-end">
+            <input type="hidden" name="_method" value="PATCH">
+            <input type="submit" class="btn btn-outline-primary justify-content-end" value="Update">
+        </div>        
+    </form>
+<%} else{%>
+    <form action="/cohorts" method="POST" class="my-2 d-flex flex-column">
+        <%- include("../partials/forminput")%>
+        <div class="d-flex justify-content-end">
+            <input type="submit" class="btn btn-outline-primary justify-content-end" value="Insert">
+        </div>        
+    </form>
+<%}%>
+<%- include("../partials/footer.ejs")%>

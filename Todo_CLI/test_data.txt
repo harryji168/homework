@@ -1,0 +1,337 @@
+Todo CLI
+Write an interactive CLI todo list application using Node's readline and fs modules. The following describes what each action does. It would be best to implement each action as its own function.
+
+The Menu
+When the todoCLI.js is first executed, a menu as shown below should be displayed. These are all the options the user should be able to perform.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+>
+
+View
+From the Todo Menu, pressing v then Enter should display the contents of the todo list then the Todo Menu again. See the example below.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+0 [✓] Take out the trash
+
+1 [✓] Buy toothpaste
+
+2 [ ] Buy Snickerdoodles
+
+3 [ ] Fix the climate
+
+4 [ ] Find a cure for aging
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+>
+
+Add
+From the Todo Menu pressing n then Enter should ask the user what item to add to the list. The user can then write a response. Save their response as a new item at the end of the todo list.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> n
+
+What?
+
+>Go hunting for pesky beetles (not the band)
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+>
+
+Complete
+From the Todo Menu pressing cX where X refers to the index of a Todo item then Enter should mark that item as complete. Tell the user which item was marked. Then, re-display the Todo Menu.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> c2
+
+Completed "Buy Snickerdoodles"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+>
+
+When displaying the list, completed items should have a checkmark (i.e. `✓`) besides their title. For example:
+
+0 [✓] Take out the trash
+
+Delete
+From the Todo Menu pressing dX where X refers to the index of a Todo item then `Enter` should remove that from the list. Tell the user which item was deleted. Then, re-display the Todo Menu.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> d0
+
+Deleted "Take out the trash"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+Quit
+From the Todo Menu pressing q quits the application. Say farewell.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> q
+
+See you soon! 😄
+
+$
+
+All Together
+As a complete example, here's an interaction with the application using all possible actions.
+
+$ node todoCLI.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+List is empty...
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> n
+
+What?
+
+> Have lunch
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> n
+
+What?
+
+> Fix the climate
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> n
+
+What?
+
+> Go beetle hunting (not rock star kind)
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+0 [ ] Have lunch
+
+1 [ ] Fix the climate
+
+2 [ ] Go beetle hunting (not rock star kind)
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> c0
+
+Completed "Have lunch"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+0 [✓] Have lunch
+
+1 [ ] Fix the climate
+
+2 [ ] Go beetle hunting (not rock star kind)
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> d2
+
+Deleted "Go beetle hunting (not rock star kind)"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+0 [✓] Have lunch
+
+1 [ ] Fix the climate
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> c1
+
+Completed "Fix the climate"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> v
+
+0 [✓] Have lunch
+
+1 [✓] Fix the climate
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+> q
+
+See you soon! 😄
+
+$
+
+Stretch
+Open File
+Add support to load a todo list from a JSON file as an argument. The application must still work if its not given a file as an argument.
+
+To process JSON files, you'll have to read them with fs.readFile then you'll have to convert the file's data into a JavaScript data structure with
+
+JSON.parse.
+
+A [sample todo](https://certifiedin.s3.amazonaws.com/uploads/attachment/file/2182/myTodos.json) file has been provided as an example. However, its contents may not be structured in the same way as your previous code.
+
+$ node todoCLI.js myTodos.json
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (q) Quit
+
+>v
+
+0 [✓] Feed the raptops
+
+1 [ ] Have lunch
+
+2 [ ] Go see Deadpool 2
+
+3 [ ] Write a script to fix the climate
+
+Save File
+Add the ability to save a file. Create a new menu item. Here's an example interaction with the new menu item:
+
+$ node todoCLIWithStretch.js
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> n
+
+What?
+
+> Save my list
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> v
+
+0 [ ] Save my list
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> s
+
+Where?
+
+> myList.json
+
+List saved to "myList.json"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> q
+
+See you soon! 😄
+
+$ cat myList.json
+
+[{"completed":false,"title":"Save my list"}]
+
+If a filePath argument has been given, use it as a suggested filePath to save the file. If the user presses Enter without giving a new filePath,
+
+use the suggested filePath as shown below:
+
+$ node todoCLIWithStretch.js myTodos.json
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> s
+
+Where? (myTodos.json)
+
+>
+
+List saved to "myTodos.json"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+>
+
+
+$ node todoCLIWithStretch.js myTodos.json
+
+Welcome to Todo CLI!
+
+--------------------
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+> s
+
+Where? (myTodos.json)
+
+>tmp/a/apple
+
+List saved to "tmp/a/apple/myTodos.json"
+
+(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit
+
+>
