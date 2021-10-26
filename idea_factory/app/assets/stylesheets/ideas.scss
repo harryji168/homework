@@ -1,0 +1,23 @@
+// Place all the styles related to the ideas controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+html {
+    padding: 2rem;
+  }
+.logo { width: 50px; height: auto; }  
+.border-btm{
+    border-bottom: 2px solid
+}
+
+.border-all{
+    border: 2px solid
+}
+
+.new-idea{
+    position:relative;
+    left: 1.2em;
+}
+
+.min-height{
+    min-height: 100vh;
+}
