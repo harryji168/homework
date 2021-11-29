@@ -1,0 +1,41 @@
+.keyboard{ 
+  max-width: 600px; 
+}
+  
+  .key {
+    font: 1.6em sans-serif;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 6px;
+    width: 46px;
+    opacity: 0.8;
+  background: 
+     radial-gradient(transparent 50%, rgba(36, 35, 35, 0.5)) 
+     center/200% 200% no-repeat;
+  transition: 0.5s ;
+
+  }
+ span:hover   { 
+    opacity: 1;
+    border-radius: 3px;
+    border: 1px solid #C91735;
+    background-size: 100% 100%;
+   }
+  
+  .hang-image {
+    text-align: center;
+  }
+  
+  .highlight {
+    background-color: tomato;
+  }
+  
+  .empty-word {
+    text-align: center;
+  }
+  
+  .title {
+    text-align: center;
+  }
